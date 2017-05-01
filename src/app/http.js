@@ -3,14 +3,20 @@ require('isomorphic-fetch');
 
 export default {
     async post(url,body={}){
-        await fetch(url,
+       let response= await fetch(`${url}`,
             {
-                method: "POST",
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(body)
             });
+       return response.json();
+    },
+
+    async get(url){
+        let response= await fetch(`${url}`);
+        return response.json();
     }
 
 }

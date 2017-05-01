@@ -2,7 +2,7 @@
   "presets": [
     "react",
     "es2015",
-    "stage-1"
+    "stage-0"
   ],
   "plugins": [
     [
@@ -14,7 +14,7 @@
         }
       ]
     ],
-    "transform-decorators-legacy",
-    "react-hot-loader/babel"
+    "transform-runtime",
+    "transform-decorators-legacy"
   ]
 }

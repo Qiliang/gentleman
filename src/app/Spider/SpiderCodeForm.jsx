@@ -12,9 +12,9 @@ function hasErrors(fieldsError) {
 }
 
 @observer
-class SpiderForm extends Component {
+class SpiderCodeForm extends Component {
 
-    @observable spiderName = 'sbd';
+    @observable spiderCodeName = 'abc';
     @observable visible = false;
 
     show = () => {
@@ -28,27 +28,28 @@ class SpiderForm extends Component {
     }
 
     componentDidMount() {
-
+        //this.props.form.validateFields();
     }
 
     handleSubmit = async (e) => {
-        let response = await http.post('/api/spiders', {name: this.spiderName});
+        //let response = await http.post('/api/spiders', {name: this.spiderName});
         console.log(response)
-        this.props.appState.refreshSpider();
         this.visible = false;
     }
 
+
+
     render() {
         return (
-            <Modal title="爬虫" visible={this.visible} footer={null}
+            <Modal title="爬虫脚本" visible={this.visible} footer={null}
                    onOk={this.handleOk} onCancel={this.handleCancel}
             >
-                <Form>
+                <div>
                     <FormItem>
-
                         <Input prefix={<Icon type="user"
-                                             style={{fontSize: 13}}/>} value={this.spiderName}
-                               onChange={({target}) => this.spiderName = target.value} placeholder="爬虫名称"/>
+                                             style={{fontSize: 13}}/>} value={this.spiderCodeName}
+                               onChange={({target}) =>this.spiderCodeName = target.value }
+                               placeholder="爬虫脚本名称"/>
 
                     </FormItem>
                     <FormItem>
@@ -59,12 +60,11 @@ class SpiderForm extends Component {
                             保存
                         </Button>
                     </FormItem>
-                </Form>
-
+                </div>
             </Modal>
         );
 
     }
 }
 
-export default SpiderForm;
+export default SpiderCodeForm;
