@@ -35,7 +35,8 @@ class SpiderForm extends Component {
         let response= http.post("/api/spiders",{
             name: this.spiderName
         });
-        console.log(response)
+        console.log(response.body)
+        debugger
         this.props.form.validateFields((err, values) => {
             if (!err) {
 
