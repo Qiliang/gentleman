@@ -19,6 +19,8 @@ module.exports = {
     },
 
     'POST /api/spiders': async(ctx, next) => {
+        console.log(ctx.request.body)
+        console.log(ctx.request)
         var p = {
             name: ctx.request.body.name,
         };

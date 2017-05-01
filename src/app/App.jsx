@@ -5,6 +5,7 @@ import {Button} from 'antd';
 import {Layout, Menu, Breadcrumb, Icon,Modal,message,Popover} from 'antd';
 import './App.css';
 import SpiderForm from './Spider/SpiderForm';
+import SpiderState from './Spider/SpiderState';
 const {SubMenu} = Menu;
 const {Header, Content, Sider} = Layout;
 
@@ -13,6 +14,7 @@ const {Header, Content, Sider} = Layout;
 class App extends Component {
 
     showModal = () => {
+        //this.refs.spiderForm.setProps({spiderState:new SpiderState()});
         this.props.appState.setVisible(true)
     }
 
@@ -77,7 +79,8 @@ class App extends Component {
                     </Layout>
                 </Layout>
 
-                <SpiderForm appState={this.props.appState} />
+                <SpiderForm ref="spiderForm" appState={this.props.appState} />
+                <DevTools />
             </Layout>
         );
     }

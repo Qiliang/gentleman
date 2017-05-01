@@ -1,12 +1,20 @@
 import React, {Component} from 'react';
+import {observable} from 'mobx';
+import {observer} from 'mobx-react';
+import http from '../http';
 import {Form, Icon, Input, Button, Modal} from 'antd';
+
 const FormItem = Form.Item;
+
 
 function hasErrors(fieldsError) {
     return Object.keys(fieldsError).some(field => fieldsError[field]);
 }
 
+@observer
 class SpiderForm extends Component {
+
+    @observable spiderName = 'sbd';
 
     handleOk = (e) => {
         console.log(e);
@@ -22,10 +30,15 @@ class SpiderForm extends Component {
     }
 
     handleSubmit = (e) => {
+        console.log(this.name)
         e.preventDefault();
+        let response= http.post("/api/spiders",{
+            name: this.spiderName
+        });
+        console.log(response)
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                console.log('Received values of form: ', values);
+
             }
         });
     }
@@ -36,15 +49,13 @@ class SpiderForm extends Component {
         const nameError = isFieldTouched('userName') && getFieldError('name');
         return (
             <Form onSubmit={this.handleSubmit}>
-                <FormItem
-                    validateStatus={nameError ? 'error' : ''}
-                    help={nameError || ''}
-                >
-                    {getFieldDecorator('name', {
-                        rules: [{required: true, message: '请输入爬虫名称!'}],
-                    })(
-                        <Input prefix={<Icon type="user" style={{fontSize: 13}}/>} placeholder="爬虫名称"/>
-                    )}
+                <FormItem>
+                    {/*{getFieldDecorator('name', {*/}
+                    {/*rules: [{required: true, message: '请输入爬虫名称!'}],*/}
+                    {/*})(*/}
+                        <Input prefix={<Icon type="user"
+                                             style={{fontSize: 13}}/>} value={this.spiderName} onChange={({target}) => this.spiderName = target.value}  placeholder="爬虫名称"/>
+                    {/*)}*/}
                 </FormItem>
                 <FormItem>
                     <Button
@@ -64,7 +75,7 @@ class SpiderForm extends Component {
             <Modal title="爬虫" visible={this.props.appState.visible} footer={null}
                    onOk={this.handleOk} onCancel={this.handleCancel}
             >
-               <this.renderForm />
+                <this.renderForm />
 
             </Modal>
         );
